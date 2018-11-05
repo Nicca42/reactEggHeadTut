@@ -1,0 +1,24 @@
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script type="text/babel">
+    const rootElement = document.getElementById('root')
+    function tick() {
+        const time = new Date().toLocaleTimeString()
+        const element = 
+        <div>
+            It is 
+            <input value={time} />
+            <input value={time} />
+        </div>
+        //This method allows us to refreash only what needs to change 
+
+        //this dose re render then entire page. there are ways around this
+        ReactDOM.render(element, rootElement)
+        // rootElement.innerHTML = element
+    }
+    tick()
+    //every 1000 ms its going to call the function 
+    setInterval(tick, 1000)
+</script>

@@ -1,0 +1,66 @@
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<style>
+.box--small {
+    width: 160px;
+    height: 160px;
+    border: 5px;
+}
+.box--medium {
+    width: 180px;
+    height: 180px;
+}
+.box--large {
+    width: 1100px;
+    height: 1100px;
+}
+</style>
+<script type="text/babel">
+    function Box({style, size, className = '',  ...rest}) {
+        const sizeClassName = size ? 'box--${size}' : ''
+        return (
+            <div
+                //use class names for regulars css styles
+                className={'box ${className} &{sizeClassName}'}
+                //you can use the styles prop which takes in an object 
+                //of css. The values are not vendor prefixed so you have to do
+                //this manually. 
+                style={{paddingLeft: 20, ...style}}
+                //there are libraries for style such as the styled components,
+                //emotion and glamorous
+                {...rest}
+            />
+        )
+    }
+    const element = (
+        <div>
+            <div>
+                <Box
+                    size="small"
+                    style={{backgroundColor: 'lightblue'}}
+                >
+                    small box
+                </Box>
+                <Box 
+                    className="medium"
+                    style={{backgroundColor: 'green'}}
+                >
+                    Another small box
+                </Box>
+                <Box 
+                    className="large"
+                    style={{backgroundColor: 'pink'}}
+                >
+                    Another small box
+                </Box>
+            </div>
+        </div>
+    )
+
+    ReactDOM.render(
+        element, 
+        document.getElementById('root'),
+    )
+</script>

@@ -1,0 +1,81 @@
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.0/index.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script type="text/babel">
+    //The production version of react does not use prop types.
+    //You can get a babel-plugin-transform-react-remove-prop-types to replace
+    //all prop types with production equivalent. 
+    
+    /** To add propTypes validation to your function component 
+        you add it to the end e.g:
+        SayHelloAsFunction.propTypes = {
+    */
+    SayHelloAsFunction.propTypes = {
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+    }
+    /** Or you can add a static property to the class
+        component e.g:
+        class SayHello extends React.Component {
+            static propTypes = {
+        
+        The keys of that object match to the props
+        of your component.
+
+        firstName: PropTypes.string.isRequired, is a 
+        function to validate your props. 
+        The propTypes module has lots of validators 
+        that you can use, if you look at the prop types
+        documentation
+    */
+    class SayHello extends React.Component {
+        static propTypes = {
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+    }
+        render() {
+            const {firstName, lastName} = this.props
+            return (
+                <div>
+                    Hello {firstName} {lastName}!
+                </div>
+            )   
+        }
+    }
+    /** const PropTypes = {
+            string(props, propName, componentName) {
+                if(typeof props[propName] !== 'string'){
+                    return new Error(
+                        'You should pass a string for ${propName} in ${componentName}'
+                    )
+                }
+            }
+        }
+        We can remove this becuse we imported the package that
+        can do this for us. 
+    */
+    /** SayHello.propTypes = {
+            firstName: PropTypes.string.isRequired,
+            lastName: PropTypes.string.isRequired,
+        }
+        SayHello.propTypes = {}
+        The curly braces means its an object.
+        For the firstName prop we add a key (firstName)
+        The value of this is a function firstName() 
+        The round braces makes it a function
+    */
+    ReactDOM.render(
+        <SayHello firstName={true} />,
+        document.getElementById('root')
+    )
+    /** Here we are passing in an unexpected value 
+        <SayHello firstName={true} />, 
+        We expect firstName to be a string, but its a bool,
+        and we arnt even setting the last name.
+        So what is being rendered is not what we expect. 
+    */
+</script>
+</body>

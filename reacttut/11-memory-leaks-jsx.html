@@ -1,0 +1,95 @@
+<body>
+    <script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class StopWatch extends React.Component {
+            state = {lapse: 0, running: false}
+            /** Handle run is the function called when we click the 
+                start stop button. 
+                It checks if the running is true, if it is and the button 
+                is clicked we want it to stop, so we clearInterval.
+                Else its not running and we want it to stop. 
+            */
+            handleRunClick = () => {
+                this.setState(state => {
+                    if(state.running) {
+                        clearInterval(this.timer)
+                    } else {
+                        /** So here we want the running to start. 
+                            So we get the start time and set it to the 
+                            current time. 
+                            We then set the lapse to the start time minuses the 
+                            current time (to get the timers time)
+                        */
+                        const startTime = Date.now() - this.state.lapse
+                        this.timer = setInterval(() => {
+                            this.setState({lapse: Date.now() - startTime})
+                        })
+                    }
+                    //we then return the opposite of the state? 
+                    return {running: !state.running}
+                })
+            }
+            /** Handle clear click is called on the clear button. 
+                It clears the interval and then resets the lapse and 
+                running to false.
+            */
+            handleClearClick = () => {
+                clearInterval(this.timer)
+                //extracted state-full variables
+                this.setState({lapse: 0, running: false})
+            }
+            componentWillUnmount() {
+                clearInterval(this.timer)
+            }
+            render() {
+                const {lapse, running} = this.state
+                /** The button style sets some nice css stuff
+                    so the buttons arn't so bland.
+                */
+                const buttonStyles = {
+                    border: '1px solid #ccc',
+                    background: '#fff',
+                    fontSize: '2em',
+                    padding: 15,
+                    margin: 5,
+                    width: 200,
+                }
+                //The actual page we see on the front end.
+                return (
+                    <div style={{textAlign: 'center'}}>
+                        <lable
+                            style={{fontSize: '5em', display: 'block'}}
+                        >    
+                            {lapse}ms
+                        </lable>
+                        <button 
+                            onClick={this.handleRunClick}
+                            style={buttonStyles}
+                        >
+                            {running ? 'Stop' : 'Start'}
+                        </button>
+                        <button 
+                            onClick={this.handleClearClick}
+                            style={buttonStyles}
+                        >
+                            Clear
+                        </button>
+                    </div>
+                )
+            }
+        }
+
+        //element is the calss StopWatch
+        const element = <StopWatch/>
+        //The reactDOM renders the element in the root
+        ReactDOM.render(
+            element,
+            document.getElementById('root')
+        )
+    </script>
+</body>

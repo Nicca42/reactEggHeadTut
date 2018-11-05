@@ -1,0 +1,56 @@
+<body>
+    <script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Counter extends React.Component {
+            //These are public class fields. 
+            state = {count: 0}
+            /** handleClick = this.handleClick.bind(this)
+                We can get rid of this ^ by binding the function
+                on creation \/
+                }.bind(this)
+
+                We managed to avoid a performance bottle neck by moving 
+                our event handler to the class body. And by using 
+                public class fields. 
+
+                We also avoided using this inside our event handler (by 
+                using a () => {} instead.)
+            */
+            handleClick = () => {
+                this.setState(({count}) => ({
+                    count: count + 1,
+                }))
+            }
+            render() {
+                const buttonStyles = {
+                    border: '1px solid #ccc',
+                    background: '#fff',
+                    fontSize: '2em',
+                    padding: 15,
+                    margin: 5,
+                    width: 200,
+                }
+                return (
+                    <button 
+                        onClick={this.handleClick} 
+                        style={buttonStyles}
+                    >
+                        {this.state.count}
+                    </button>
+                )   
+            }
+        }
+        /** Here we render the class we created called 
+            Counter by calling it directly in the 
+            ReactDOM render function.
+        */
+        ReactDOM.render(
+            <Counter/>,
+            document.getElementById('root')
+        )
+    </script>
+</body>

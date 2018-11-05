@@ -1,0 +1,52 @@
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script type="text/babel">
+    const rootElement = document.getElementById('root')
+    /** The message takes in an argument (props).
+        Props has an element called msg. We take this 
+        msg out of the props and make it the child 
+        element. Function calls dont compose as well as jsx,
+        const message = (props) => <div>{props.msg}</div>
+        so we will change this to jsx.
+    */
+    /** For jsx to differentiate between a variable in scope 
+        or a raw DOM element you need to capitalize your component. 
+    */
+    const Message = props => <div>{props.children}</div>
+    const element = (
+        /** The div then calls message {message}
+            and for its parameters passes in 
+            a msg. The msg is in {} because it 
+            is a javaScript thing. 
+            We can then set the message to what 
+            we want it to be by passing it in 
+            where we use it.
+            {message({msg: 'Hello World'})}
+            {message({msg: 'Goodbye World'})}
+
+            We can also make it a child element 
+            <Message children='Hello World' />
+            but we can go one further and make the child
+            element a typical child element 
+            <Message>Goodbye World</Message>
+
+            We can even put an element inside another one 
+        */
+        <div className="container">
+            <Message>
+                Hello World
+                <Message>Goodbye World</Message>
+            </Message>
+        </div>
+        /** when we wanted to switch between the react create element div
+            to the jsx div. 
+            React create element div:
+            {message({msg: 'Hello World'})}
+            React create element jsx div:
+            {React.createElement(message, {msg: 'Goodbye World'})}
+        */
+    )
+    ReactDOM.render(element, rootElement);
+</script>

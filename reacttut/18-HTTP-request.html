@@ -1,0 +1,61 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script type="https://unpkg.com/axios@0.16.2/dist/axios.min.js"></script>
+    <script type="text/babel">
+        class UserCompany extends React.Component {
+            state = {company: undefined, loaded: false}
+            componentsDidMount() {
+                //a library for making requests 
+                axios({
+                    url: 'https://api.github.com/graphql',
+                    method: 'post',
+                    data: {
+                        query: `{
+                            user(login: "${this.props.username}") {
+                                company
+                            }    
+                        }`,
+                    },
+                    headers: {
+                        Authorization: `bearer d5e263ae9d15990a4d5d26c20f5af093a576dadf`
+                    },
+                }).then(response => {
+                    this.setState({
+                        loaded: true,
+                        company: response.data.data.user.company,
+                    })
+                    //once your request has resolved we deal with it here 
+                }, error => {
+                    this.setState({
+                        error,
+                        loaded: true,
+                    })
+                })
+            }
+            render() {
+                //this is to do something different in the case of an error
+                return this.state.error ? this.state.loaded 
+                ? this.state.company || 'Unknown' 
+                : '...'
+            }
+        }
+
+        const username = 'username'
+        const element = (
+            <div>
+                <div>
+                    {`@${username} works at `}
+                    <UserCompany username={username} />
+                </div>
+            </div>
+        )
+
+        ReactDOM.render(
+            element, 
+            document.getElementById('root'),
+        )
+    </script>
+</body>

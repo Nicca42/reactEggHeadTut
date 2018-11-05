@@ -1,0 +1,51 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script type="text/babel">
+        //A message component that renders a message inside of a div
+        function Message({message}) {
+            return (
+                <div>
+                    {message ? (
+                            <div>{message}</div>
+                        ) : (
+                            <div>No Message</div>
+                        )}
+                </div>
+
+                //Using the {} allows us to have conditional actions. 
+                //You cannot use an if(){} so use a ? : instead
+                // <div>
+                //     {message 
+                //         ? React.createElement(
+                //             'div', 
+                //             null, 
+                //             message
+                //         )
+                //         : React.createElement(
+                //             'div', 
+                //             null, 
+                //             'No message'
+                //         )}
+                // </div>
+            )
+            //message ? React.createElement('div', null, message) : React.createElement('div', null, 'No message')
+            // //If the message is empty then do this
+            // if(!message){
+            //     return React.createElement(
+            //         'div', 
+            //         null, 
+            //         'No message'
+            //     )
+            // }
+            // //else do this
+            // return React.createElement('div', null, message)
+        }
+        ReactDOM.render(
+            <Message message={null} />,
+            document.getElementById('root'),
+        )
+    </script>
+</body>
