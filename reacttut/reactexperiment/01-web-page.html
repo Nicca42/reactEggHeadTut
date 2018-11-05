@@ -1,0 +1,80 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <style>
+        .box--small {
+            width: 160px;
+            height: 160px;
+            border: 5px;
+        }
+        .box--medium {
+            width: 180px;
+            height: 180px;
+        }
+        .box--large {
+            width: 1100px;
+            height: 1100px;
+        }
+    </style>
+    <script type="text/babel">
+        class App extends React.Component {
+            // state {
+            //     this.props.username: '',
+            //     this.props.password: '',
+            //     this.props.loggedIn: false,
+            // }
+            handleSubmit = event => {
+                event.preventDefault()
+                // this.props.username = event.target.elements.username.value,
+                console.log(event.target.elements.username.value)
+                // this.props.password = event.target.elements.password.value,
+                console.log(event.target.elements.password.value)
+            }
+            render() {
+                return(
+                    <form 
+                        style={{paddingLeft: '20px'}}
+                        onSubmit={this.handleSubmit}
+                    >
+                        <div
+                            style={{paddingTop: '20px'}}
+                        >
+                            <label>
+                                Name: 
+                                <input 
+                                    type="text"
+                                    name="username"
+                                    ref={node => (this.inputNode = node)}
+                                />
+                            </label>
+                        </div>
+                        <div
+                            style={{paddingTop: '20px'}}
+                        >
+                            <label>
+                                Password: 
+                                <input 
+                                    type="text"
+                                    name="password"
+                                    ref={node => (this.inputNode = node)}
+                                />
+                            </label>
+                        </div>
+                        <div
+                            style={{paddingTop: '20px'}}
+                        >
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById("root"),
+        )
+    </script>
+</body>

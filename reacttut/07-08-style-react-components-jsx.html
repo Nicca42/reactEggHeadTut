@@ -19,11 +19,11 @@
 </style>
 <script type="text/babel">
     function Box({style, size, className = '',  ...rest}) {
-        const sizeClassName = size ? 'box--${size}' : ''
+        const sizeClassName = size ? `box--${size}` : ''
         return (
             <div
                 //use class names for regulars css styles
-                className={'box ${className} &{sizeClassName}'}
+                className={`box ${className} ${sizeClassName}`}
                 //you can use the styles prop which takes in an object 
                 //of css. The values are not vendor prefixed so you have to do
                 //this manually. 
